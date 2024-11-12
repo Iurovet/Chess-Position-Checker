@@ -51,6 +51,15 @@ public class PositionChecker {
         System.out.println("Alternatively, use X/x to clear the square, or Q/q to quit.");
     }
 
+    public static char[][] updateBoard(char[][] position, String userInput) {
+        int file = (int)(userInput.charAt(1)) - 97; // a is ASCII character 97, and uses index 0 in the inner array.
+        int rank = (int)(userInput.charAt(2)) - 49; // 1 is ASCII character 49, and uses index 0 in the outer array.
+        char newSymbol = ((userInput.charAt(0) == 'X') || userInput.charAt(0) == 'x') ? '?' : userInput.charAt(0);
+
+        position[rank][file] = newSymbol;
+        return position;
+    }
+    
     public static boolean validateUserInput(String userInput) {
         // Quitting is the sole exception to the below rule
         if ((userInput.length() != 3) && (!userInput.equalsIgnoreCase("Q"))) {
@@ -98,6 +107,7 @@ public class PositionChecker {
                 userInput = scnr.nextLine();
                 valid = validateUserInput(userInput);
             }
+            position = updateBoard(position, userInput);
         }
 
         scnr.close();
