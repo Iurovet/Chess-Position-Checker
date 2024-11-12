@@ -19,16 +19,23 @@ public class PositionChecker {
         return false;
     }
 
-    public static void checkPositionValidity(char[][] position) {
+    public static boolean checkEmptyBoard(char[][] position) {
         for (char[] row : position) {
             for (char square : row) {
                 if (square != '?') {
-                    return;
+                    return false;
                 }
             }
         }
 
         System.out.println("Board is empty");
+        return true;
+    }
+
+    public static void checkPositionValidity(char[][] position) {
+        if (checkEmptyBoard(position)) {// If board is empty, nothing else to speak of.
+            return;
+        }
     }
     
     public static char[][] initialiseBoard() {
