@@ -32,51 +32,140 @@ public class PositionChecker {
         return true;
     }
 
-    public static void checkKingPositions(char[][] position) {
+    public static void checkNumbersOfPieces(char[][] position) {
         // Stores as a string the indices, without spaces. Bearing in mind that files are stored the wrong way around.
-        String whiteKingPos = "";
-        String blackKingPos = "";
+        int numWhitePawns = 0;
+        int numBlackPawns = 0;
+        int numWhiteKnights = 0;
+        int numBlackKnights = 0;
+        int numWhiteBishops = 0;
+        int numBlackBishops = 0;
+        int numWhiteRooks = 0;
+        int numBlackRooks = 0;
+        int numWhiteQueens = 0;
+        int numBlackQueens = 0;
+        int numWhiteKings = 0;
+        int numBlackKings = 0;
         
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
-                if (position[i][j] == 'K') {// White king
-                    if (whiteKingPos == "") {
-                        whiteKingPos = String.valueOf(7 - i) + String.valueOf(j);
-                    }
-                    else {
-                        System.out.println("Cannot have more than 1 white king");
-                        return;
-                    }
-                }
-
-                else if (position[i][j] == 'k') {// Black king
-                    if (blackKingPos == "") {
-                        blackKingPos = String.valueOf(7 - i) + String.valueOf(j);
-                    }
-                    else {
-                        System.out.println("Cannot have more than 1 black king");
-                        return;
-                    }
+                switch(position[i][j]) {
+                    case 'P':
+                        numWhitePawns++;
+                        break;
+                    case 'p':
+                        numBlackPawns++;
+                        break;
+                    case 'N':
+                        numWhiteKnights++;
+                        break;
+                    case 'n':
+                        numBlackKnights++;
+                        break;
+                    case 'B':
+                        numWhiteBishops++;
+                        break;
+                    case 'b':
+                        numBlackBishops++;
+                        break;
+                    case 'R':
+                        numWhiteRooks++;
+                        break;
+                    case 'r':
+                        numBlackRooks++;
+                        break;
+                    case 'Q':
+                        numWhiteQueens++;
+                        break;
+                    case 'q':
+                        numBlackQueens++;
+                        break;
+                    case 'K':
+                        numWhiteKings++;
+                        break;
+                    case 'k':
+                        numBlackKings++;
+                        break;
+                    default:
+                        break;
                 }
             }
+
+            if (numWhitePawns > 8) {
+                System.out.println("Too many white pawns");
+            }
+            
+            if (numBlackPawns > 8) {
+                System.out.println("Too many black pawns");
+            }
+
+            if (numWhiteKnights > 2) {
+                System.out.println("Too many white knights");
+            }
+
+            if (numBlackKnights > 2) {
+                System.out.println("Too many black knights");
+            }
+            
+            if (numWhiteBishops > 2) {
+                System.out.println("Too many white bishops");
+            }
+
+            if (numBlackBishops > 2) {
+                System.out.println("Too many black bishops");
+            }
+
+            if (numWhiteRooks > 2) {
+                System.out.println("Too many white rooks");
+            }
+
+            if (numBlackRooks > 2) {
+                System.out.println("Too many black rooks");
+            }
+
+            if (numWhiteQueens > 2) {
+                System.out.println("Too many white queens");
+            }
+
+            if (numBlackQueens > 2) {
+                System.out.println("Too many black queens");
+            }
+
+            if (numWhiteKings > 1) {
+                System.out.println("Too many white kings");
+            }
+
+            if (numBlackKings > 1) {
+                System.out.println("Too many black kings");
+            }
+
+            // Not possible for either side to have their 7 minor/major starting pieces + more than 8 promoted pieces total
+            if (numWhiteKnights + numWhiteBishops + numWhiteRooks + numWhiteQueens > 15) {
+                System.out.println("Too many promoted white pieces (total)");
+            }
+
+            if (numBlackKnights + numBlackBishops + numBlackRooks + numBlackQueens > 15) {
+                System.out.println("Too many promoted black pieces (total)");
+            }
         }
+    }
 
-        if (whiteKingPos == "") {
-            System.out.println("Cannot have 0 white kings");
-        }
+    public static void checkKingPositions(char[][] position) {        
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                for (int k = 0; k < 8; ++k) {
+                    for (int l = 0; l < 8; ++l) {
+                        if ((Math.abs(k - i) > 1) || (Math.abs(l - j) > 1)) {// Only consider pairs of adjacent squares
+                            continue;
+                        }
 
-        if (blackKingPos == "") {
-            System.out.println("Cannot have 0 black kings");
-        }
-
-        if ((whiteKingPos.length() == 2) && (blackKingPos.length() == 2)) {// Ensure both valid kings exist
-            // Take care of both +ve and -ve distance at the same time.
-            int fileDistance = Math.abs(whiteKingPos.charAt(0) - blackKingPos.charAt(0));
-            int rankDistance = Math.abs(whiteKingPos.charAt(1) - blackKingPos.charAt(1));
-
-            // If 2 kings are next to each other, this means their rows and/or columns differ by at most 1.
-            if ((fileDistance <= 1) && (rankDistance <= 1)) {
-                System.out.println("Kings are next to each other");
+                        if (((position[i][j] == 'K') && (position[i][j] == 'k')) ||
+                            ((position[i][j] == 'k') && (position[i][j] == 'K'))) {
+                            System.out.println("Kings are next to each other");
+                            return;
+                        }
+                    }
+                }        
             }
         }
     }
@@ -105,7 +194,8 @@ public class PositionChecker {
         if (checkEmptyBoard(position)) {// If board is empty, nothing else to speak of.
             return;
         }
-
+        
+        checkNumbersOfPieces(position);
         checkKingPositions(position);
         checkPawnPositions(position);
     }
