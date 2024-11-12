@@ -209,8 +209,8 @@ public class PositionChecker {
         return position;
     }
     
-    public static void printBoard(char[][] position) {
-        System.out.println("  a b c d e f g h");
+    public static void printBoard(char[][] position, boolean isWhiteView) {
+        System.out.println("  " + (isWhiteView ? "a b c d e f g h" : "h g f e d c b a"));
         for (int i = 0; i < 9; ++i) {
             System.out.print(" ");
             for (int j = 0; j < 8; ++j) {
@@ -220,20 +220,21 @@ public class PositionChecker {
             System.out.println("-");
 
             if (i < 8) {
-                System.out.print(i + 1);
+                System.out.print(isWhiteView ? (8 - i) : (i + 1));
                 for (int k = 0; k < 8; ++k) {
-                    // Outer array index accounts for the rank, which is printed in reverse order.
-                    System.out.print("|" + position[7 - i][k]);
+                    // Either the ranks or files are in reverse order, depending on white or black view, respectively.
+                    System.out.print("|" + position[isWhiteView ? (7 - i) : i][isWhiteView ? k : (7 - k)]);
                 }
 
-                System.out.println("|" + (8 - i));
+                System.out.println("|" + (isWhiteView ? (i + 1) : (8 - i)));
             }
         }
-        System.out.println("  a b c d e f g h");
+        System.out.println("  " + (isWhiteView ? "a b c d e f g h" : "h g f e d c b a"));
     }
 
     public static void printPrompts() {
         System.out.println("Enter the chosen piece name as below (upper-/lowercase for white/black), followed by the square - P/p, N/n, B/b, R/r, Q/q, K/k.");
+        System.out.println("To flip the board, type in flip or flip board, case insensitive");
         System.out.println("Alternatively, use X/x to clear the square, or Q/q to quit.");
     }
 
@@ -246,9 +247,17 @@ public class PositionChecker {
         return position;
     }
     
-    public static boolean validateUserInput(String userInput) {
-        // Quitting is the sole exception to the below rule
-        if ((userInput.length() != 3) && (!userInput.equalsIgnoreCase("Q"))) {
+    public static boolean validateUserInput(String userInput) {        
+        // The 1st 2 scenarios are the only times that an input not of length 3 is allowed.
+        if (userInput.equalsIgnoreCase("Q")) {
+            return true;
+        }
+
+        if ((userInput.equalsIgnoreCase("Flip")) || (userInput.equalsIgnoreCase("Flip board"))) {
+            return true;
+        }
+
+        if (userInput.length() != 3) {
             System.out.println("Error: Your input must be 3 characters long");
             return false;
         }
@@ -278,22 +287,33 @@ public class PositionChecker {
         // Initialise chessboard position
         char[][] position = initialiseBoard();
 
+        // Track board view
+        boolean isWhiteView = true;
+
         Scanner scnr = new Scanner(System.in);
         String userInput = "";
 
         while (!userInput.equalsIgnoreCase("Q")) {
-            printBoard(position);
+            printBoard(position, isWhiteView);
             
             printPrompts();
             userInput = scnr.nextLine();
-            boolean valid = validateUserInput(userInput);;
+            boolean valid = validateUserInput(userInput);
             
             while (!valid) {
                 printPrompts();
                 userInput = scnr.nextLine();
                 valid = validateUserInput(userInput);
             }
-            position = updateBoard(position, userInput);
+            
+            // Flip board if requested
+            if (userInput.equalsIgnoreCase("Flip") || userInput.equalsIgnoreCase("Flip board")) {
+                isWhiteView = !isWhiteView;
+            }
+            else {
+                position = updateBoard(position, userInput);
+            }
+
             checkPositionValidity(position);
         }
 
