@@ -2,6 +2,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class PositionChecker {
+    public static boolean checkCharAgainstList(char c, int[] charList) {
+        int c1 = (int)c;
+                
+        for (int i1 : charList) {
+            if (c1 == i1) {
+                return true;
+            }
+
+            // Checks lower-case letters, too, if upper case letters were provided.
+            if ((i1 >= 65) && (i1 <= 90) && (c1 == i1 + 32)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public static char[][] initialiseBoard() {
         char[][] position = new char[8][8];
         for (char[] row : position) {
@@ -30,7 +47,7 @@ public class PositionChecker {
     }
 
     public static void printPrompts() {
-        System.out.println("Enter the chosen piece name as below (upper-/lowercase for white/black), followed by the square - P/p, K/k, B/b, R/r, Q/q, K/k.");
+        System.out.println("Enter the chosen piece name as below (upper-/lowercase for white/black), followed by the square - P/p, N/n, B/b, R/r, Q/q, K/k.");
         System.out.println("Alternatively, use X/x to clear the square, or Q/q to quit.");
     }
 
@@ -38,6 +55,12 @@ public class PositionChecker {
         // Quitting is the sole exception to the below rule
         if ((userInput.length() != 3) && (!userInput.equalsIgnoreCase("Q"))) {
             System.out.println("Error: Your input must be 3 characters long");
+            return false;
+        }
+
+        // Check that the 1st letter is P/p, N/n, B/b, R/r, Q/q, K/k or X/x
+        if (!checkCharAgainstList(userInput.charAt(0), new int[]{80, 78, 66, 82, 81, 75, 88})) {
+            System.out.println("Error: 1st character must be P/p, N/n, B/b, R/r, Q/q, K/k or X/x");
             return false;
         }
         
