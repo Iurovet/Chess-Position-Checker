@@ -28,6 +28,11 @@ public class PositionChecker {
             }
         }
     }
+
+    public static void printPrompts() {
+        System.out.println("Enter the chosen piece name as below (upper-/lowercase for white/black), followed by the square - P/p, K/k, B/b, R/r, Q/q, K/k.");
+        System.out.println("Alternatively, use X/x to clear the square, or Q/q to quit.");
+    }
     
     public static void main(String[] args) {
         // Initialise chessboard position
@@ -38,8 +43,7 @@ public class PositionChecker {
 
         while (!userInput.equalsIgnoreCase("q")) {
             printBoard(position);
-
-            System.out.println("New command, q to quit");
+            printPrompts();
             userInput = scnr.nextLine();
         }
 
