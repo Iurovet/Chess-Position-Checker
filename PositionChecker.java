@@ -58,9 +58,21 @@ public class PositionChecker {
             return false;
         }
 
-        // Check that the 1st letter is P/p, N/n, B/b, R/r, Q/q, K/k or X/x
+        // Check that the 1st character is P/p, N/n, B/b, R/r, Q/q, K/k or X/x
         if (!checkCharAgainstList(userInput.charAt(0), new int[]{80, 78, 66, 82, 81, 75, 88})) {
             System.out.println("Error: 1st character must be P/p, N/n, B/b, R/r, Q/q, K/k or X/x");
+            return false;
+        }
+
+        // Check that the 2nd character is a-h
+        if (!checkCharAgainstList(userInput.charAt(1), new int[]{97, 98, 99, 100, 101, 102, 103, 104})) {
+            System.out.println("Error: 2nd character must be a-h");
+            return false;
+        }
+
+        // Check that the 3rd character is 1-8
+        if (!checkCharAgainstList(userInput.charAt(2), new int[]{49, 50, 51, 52, 53, 54, 55, 56})) {
+            System.out.println("Error: 3rd character must be 1-8");
             return false;
         }
         
