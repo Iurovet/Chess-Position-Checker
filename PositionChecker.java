@@ -1,7 +1,16 @@
 import java.util.Arrays;
 
 public class PositionChecker {
-    private static void printBoard(char[][] position) {
+    public static char[][] initialiseBoard() {
+        char[][] position = new char[8][8];
+        for (char[] row : position) {
+            Arrays.fill(row, '?');
+        }
+
+        return position;
+    }
+    
+    public static void printBoard(char[][] position) {
         for (int i = 0; i < 9; ++i) {
             for (int j = 0; j < 8; ++j) {
                 System.out.print(" -");
@@ -21,10 +30,7 @@ public class PositionChecker {
     
     public static void main(String[] args) {
         // Initialise chessboard position
-        char[][] position = new char[8][8];
-        for (char[] row : position) {
-            Arrays.fill(row, '?');
-        }
+        char[][] position = initialiseBoard();
 
         printBoard(position);
     }
