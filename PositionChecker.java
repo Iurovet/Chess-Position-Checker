@@ -210,7 +210,9 @@ public class PositionChecker {
     }
     
     public static void printBoard(char[][] position) {
+        System.out.println("  a b c d e f g h");
         for (int i = 0; i < 9; ++i) {
+            System.out.print(" ");
             for (int j = 0; j < 8; ++j) {
                 System.out.print("--");
             }
@@ -218,14 +220,16 @@ public class PositionChecker {
             System.out.println("-");
 
             if (i < 8) {
+                System.out.print(i + 1);
                 for (int k = 0; k < 8; ++k) {
                     // Outer array index accounts for the rank, which is printed in reverse order.
                     System.out.print("|" + position[7 - i][k]);
                 }
 
-                System.out.println("|");
+                System.out.println("|" + (8 - i));
             }
         }
+        System.out.println("  a b c d e f g h");
     }
 
     public static void printPrompts() {
