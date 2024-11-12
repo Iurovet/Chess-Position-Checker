@@ -32,10 +32,82 @@ public class PositionChecker {
         return true;
     }
 
+    public static void checkKingPositions(char[][] position) {
+        // Stores as a string the indices, without spaces. Bearing in mind that files are stored the wrong way around.
+        String whiteKingPos = "";
+        String blackKingPos = "";
+        
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (position[i][j] == 'K') {// White king
+                    if (whiteKingPos == "") {
+                        whiteKingPos = String.valueOf(7 - i) + String.valueOf(j);
+                    }
+                    else {
+                        System.out.println("Cannot have more than 1 white king");
+                        return;
+                    }
+                }
+
+                else if (position[i][j] == 'k') {// Black king
+                    if (blackKingPos == "") {
+                        blackKingPos = String.valueOf(7 - i) + String.valueOf(j);
+                    }
+                    else {
+                        System.out.println("Cannot have more than 1 black king");
+                        return;
+                    }
+                }
+            }
+        }
+
+        if (whiteKingPos == "") {
+            System.out.println("Cannot have 0 white kings");
+        }
+
+        if (blackKingPos == "") {
+            System.out.println("Cannot have 0 black kings");
+        }
+
+        if ((whiteKingPos.length() == 2) && (blackKingPos.length() == 2)) {// Ensure both valid kings exist
+            // Take care of both +ve and -ve distance at the same time.
+            int fileDistance = Math.abs(whiteKingPos.charAt(0) - blackKingPos.charAt(0));
+            int rankDistance = Math.abs(whiteKingPos.charAt(1) - blackKingPos.charAt(1));
+
+            // If 2 kings are next to each other, this means their rows and/or columns differ by at most 1.
+            if ((fileDistance <= 1) && (rankDistance <= 1)) {
+                System.out.println("Kings are next to each other");
+            }
+        }
+    }
+    
+    public static void checkPawnPositions(char[][] position) {
+        for (int j = 0; j < 8; ++j) {
+            if ((position[7][j] == 'P')) {// Unpromoted white pawns
+                System.out.println("There are unpromoted white pawn/s");
+            }
+            
+            if ((position[0][j] == 'P')) {// White pawns on their back row
+                System.out.println("There are white pawns on the back row");
+            }
+            
+            if (position[7][j] == 'p') {// Black pawns on their back row
+                System.out.println("There are black pawns on the back row");
+            }
+
+            if ((position[0][j] == 'p')) {// Unpromoted black pawns
+                System.out.println("There are unpromoted black pawn/s");
+            }
+        }
+    }
+
     public static void checkPositionValidity(char[][] position) {
         if (checkEmptyBoard(position)) {// If board is empty, nothing else to speak of.
             return;
         }
+
+        checkKingPositions(position);
+        checkPawnPositions(position);
     }
     
     public static char[][] initialiseBoard() {
