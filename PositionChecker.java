@@ -90,63 +90,63 @@ public class PositionChecker {
                         break;
                 }
             }
+        }
 
-            if (numWhitePawns > 8) {
-                System.out.println("Too many white pawns");
-            }
-            
-            if (numBlackPawns > 8) {
-                System.out.println("Too many black pawns");
-            }
+        if (numWhitePawns > 8) {
+            System.out.println("Too many white pawns");
+        }
+        
+        if (numBlackPawns > 8) {
+            System.out.println("Too many black pawns");
+        }
 
-            if (numWhiteKnights > 10) {
-                System.out.println("Too many white knights");
-            }
+        if (numWhiteKnights > 10) {
+            System.out.println("Too many white knights");
+        }
 
-            if (numBlackKnights > 10) {
-                System.out.println("Too many black knights");
-            }
-            
-            if (numWhiteBishops > 10) {
-                System.out.println("Too many white bishops");
-            }
+        if (numBlackKnights > 10) {
+            System.out.println("Too many black knights");
+        }
+        
+        if (numWhiteBishops > 10) {
+            System.out.println("Too many white bishops");
+        }
 
-            if (numBlackBishops > 10) {
-                System.out.println("Too many black bishops");
-            }
+        if (numBlackBishops > 10) {
+            System.out.println("Too many black bishops");
+        }
 
-            if (numWhiteRooks > 10) {
-                System.out.println("Too many white rooks");
-            }
+        if (numWhiteRooks > 10) {
+            System.out.println("Too many white rooks");
+        }
 
-            if (numBlackRooks > 10) {
-                System.out.println("Too many black rooks");
-            }
+        if (numBlackRooks > 10) {
+            System.out.println("Too many black rooks");
+        }
 
-            if (numWhiteQueens > 9) {
-                System.out.println("Too many white queens");
-            }
+        if (numWhiteQueens > 9) {
+            System.out.println("Too many white queens");
+        }
 
-            if (numBlackQueens > 9) {
-                System.out.println("Too many black queens");
-            }
+        if (numBlackQueens > 9) {
+            System.out.println("Too many black queens");
+        }
 
-            if (numWhiteKings > 1) {
-                System.out.println("Too many white kings");
-            }
+        if (numWhiteKings != 1) {
+            System.out.println("White does not exactly have 1 king");
+        }
 
-            if (numBlackKings > 1) {
-                System.out.println("Too many black kings");
-            }
+        if (numBlackKings != 1) {
+            System.out.println("Black does not exactly have 1 king");
+        }
 
-            // Not possible for either side to have their 7 minor/major starting pieces + more than 8 promoted pieces total
-            if (numWhiteKnights + numWhiteBishops + numWhiteRooks + numWhiteQueens > 15) {
-                System.out.println("Too many promoted white pieces (total)");
-            }
+        // Not possible for either side to have their 7 minor/major starting pieces + more than 8 promoted pieces total
+        if (numWhiteKnights + numWhiteBishops + numWhiteRooks + numWhiteQueens > 15) {
+            System.out.println("Too many promoted white pieces (total)");
+        }
 
-            if (numBlackKnights + numBlackBishops + numBlackRooks + numBlackQueens > 15) {
-                System.out.println("Too many promoted black pieces (total)");
-            }
+        if (numBlackKnights + numBlackBishops + numBlackRooks + numBlackQueens > 15) {
+            System.out.println("Too many promoted black pieces (total)");
         }
     }
 
