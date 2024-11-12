@@ -38,7 +38,8 @@ public class PositionChecker {
 
             if (i < 8) {
                 for (int k = 0; k < 8; ++k) {
-                    System.out.print("|" + position[i][k]);
+                    // Outer array index accounts for the rank, which is printed in reverse order.
+                    System.out.print("|" + position[7 - i][k]);
                 }
 
                 System.out.println("|");
