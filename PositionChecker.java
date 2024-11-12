@@ -18,6 +18,18 @@ public class PositionChecker {
         
         return false;
     }
+
+    public static void checkPositionValidity(char[][] position) {
+        for (char[] row : position) {
+            for (char square : row) {
+                if (square != '?') {
+                    return;
+                }
+            }
+        }
+
+        System.out.println("Board is empty");
+    }
     
     public static char[][] initialiseBoard() {
         char[][] position = new char[8][8];
@@ -109,6 +121,7 @@ public class PositionChecker {
                 valid = validateUserInput(userInput);
             }
             position = updateBoard(position, userInput);
+            checkPositionValidity(position);
         }
 
         scnr.close();
