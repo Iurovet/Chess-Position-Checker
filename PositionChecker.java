@@ -33,6 +33,16 @@ public class PositionChecker {
         System.out.println("Enter the chosen piece name as below (upper-/lowercase for white/black), followed by the square - P/p, K/k, B/b, R/r, Q/q, K/k.");
         System.out.println("Alternatively, use X/x to clear the square, or Q/q to quit.");
     }
+
+    public static boolean validateUserInput(String userInput) {
+        // Quitting is the sole exception to the below rule
+        if ((userInput.length() != 3) && (!userInput.equalsIgnoreCase("Q"))) {
+            System.out.println("Error: Your input must be 3 characters long");
+            return false;
+        }
+        
+        return true;
+    }
     
     public static void main(String[] args) {
         // Initialise chessboard position
@@ -41,10 +51,18 @@ public class PositionChecker {
         Scanner scnr = new Scanner(System.in);
         String userInput = "";
 
-        while (!userInput.equalsIgnoreCase("q")) {
+        while (!userInput.equalsIgnoreCase("Q")) {
             printBoard(position);
+            
             printPrompts();
             userInput = scnr.nextLine();
+            boolean valid = validateUserInput(userInput);;
+            
+            while (!valid) {
+                printPrompts();
+                userInput = scnr.nextLine();
+                valid = validateUserInput(userInput);
+            }
         }
 
         scnr.close();
