@@ -99,35 +99,35 @@ public class PositionChecker {
                 System.out.println("Too many black pawns");
             }
 
-            if (numWhiteKnights > 2) {
+            if (numWhiteKnights > 10) {
                 System.out.println("Too many white knights");
             }
 
-            if (numBlackKnights > 2) {
+            if (numBlackKnights > 10) {
                 System.out.println("Too many black knights");
             }
             
-            if (numWhiteBishops > 2) {
+            if (numWhiteBishops > 10) {
                 System.out.println("Too many white bishops");
             }
 
-            if (numBlackBishops > 2) {
+            if (numBlackBishops > 10) {
                 System.out.println("Too many black bishops");
             }
 
-            if (numWhiteRooks > 2) {
+            if (numWhiteRooks > 10) {
                 System.out.println("Too many white rooks");
             }
 
-            if (numBlackRooks > 2) {
+            if (numBlackRooks > 10) {
                 System.out.println("Too many black rooks");
             }
 
-            if (numWhiteQueens > 2) {
+            if (numWhiteQueens > 9) {
                 System.out.println("Too many white queens");
             }
 
-            if (numBlackQueens > 2) {
+            if (numBlackQueens > 9) {
                 System.out.println("Too many black queens");
             }
 
